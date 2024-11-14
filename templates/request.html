@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Request Form</title>
+    <style>
+        /* Sahifa umumiy dizayni */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Formaning konteyneri */
+        .form-container {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        /* Sahifa sarlavhasi */
+        h3 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Formdagi input va label uslubi */
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            background-color: #fafafa;
+        }
+
+        /* Tugma uslubi */
+        button {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        /* Tugmaga hover qilish */
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Placeholder matnini ushlab turish */
+        input::placeholder {
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h3>Formani to'ldiring:</h3>
+        <form method="post">
+            {% csrf_token %}
+            <label for="full_name">Ism:</label>
+            <input type="text" name="full_name" id="full_name" placeholder="Ismingizni kiriting..">
+            <label for="phone_number">Telefon:</label>
+            <input type="tel" name="phone_number" id="phone_number" placeholder="+998 XX XXX XX XX">
+            <button type="submit">Tasdiqlash</button>
+        </form>
+    </div>
+
+</body>
+</html>

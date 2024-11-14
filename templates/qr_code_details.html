@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QR Code Details</title>
+    <style>
+        /* Sahifa markazida kontentni joylashtirish */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        /* QR Kod ma'lumotlarini o'rab turgan kartani uslubi */
+        .card {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* QR Koding URL uslubi */
+        .card h3 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            word-wrap: break-word;
+        }
+
+        /* QR Kod rasmi uslubi */
+        .card img {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        /* Yuklab olish tugmasi uslubi */
+        .download-button {
+            display: inline-block;
+            padding: 0.8rem 1.2rem;
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        /* Tugmaga hover qilish uslubi */
+        .download-button:hover {
+            background-color: #45a049;
+        }
+
+        /* Xatolik matni uslubi */
+        .error-message {
+            color: #ff6347;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h3>{{ qr_code.url }}</h3>
+        {% if qr_code.image %}
+            <img src="{{ qr_code.image.url }}" alt="QR Code Image">
+            <br>
+            <a href="{{ qr_code.image.url }}" download="qr_code.png" class="download-button">Download</a>
+        {% else %}
+            <p class="error-message">Rasm topilmadi!</p>
+        {% endif %}
+    </div>
+</body>
+</html>

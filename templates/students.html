@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Students List</title>
+    <style>
+        /* Sahifa umumiy dizayni */
+        body {
+            font-family: 'Times New Roman', serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Kontent konteyneri */
+        .container {
+            width: 70%;
+            margin: 2rem auto;
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ccc;
+        }
+
+        /* Sarlavha */
+        h3 {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Ro'yxat uchun uslub */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        td {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        /* Raqamlar va telefonni ajratish */
+        .student-number {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .student-phone {
+            color: #555;
+            font-style: italic;
+        }
+
+        /* Responsivlik uchun kichik ekranlarda moslashish */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h3>Students List</h3>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Full Name</th>
+                <th>Phone Number</th>
+            </tr>
+            {% for s in students %}
+                <tr>
+                    <td class="student-number">{{ forloop.counter }}</td>
+                    <td>{{ s.full_name }}</td>
+                    <td class="student-phone">{{ s.phone_number }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</body>
+</html>

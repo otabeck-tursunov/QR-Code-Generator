@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My QR Codes</title>
+    <style>
+        /* Sahifa uchun asosiy uslub */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        /* Sahifa sarlavhasi */
+        h1 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        /* Har bir QR kod kartasi uchun uslub */
+        .qr-card {
+            background-color: #fff;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* URL matni uchun uslub */
+        .qr-url {
+            font-size: 1.1rem;
+            color: #555;
+            word-wrap: break-word;
+        }
+
+        /* Tugma uslubi */
+        .view-button {
+            padding: 0.5rem 1rem;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        /* Tugmaga hover qilish uslubi */
+        .view-button:hover {
+            background-color: #0069d9;
+        }
+    </style>
+</head>
+<body>
+    <h1>My QR Codes</h1>
+
+    <!-- QR kodlar ro'yxati -->
+    {% for qr in qr_codes %}
+        <div class="qr-card">
+            <p class="qr-url">{{ forloop.counter }}. {{ qr.url }}</p>
+            <a href="/qr_codes/{{ qr.id }}/" class="view-button">View QR Code</a>
+        </div>
+    {% endfor %}
+</body>
+</html>
