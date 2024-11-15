@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        /* Umumiy sahifa uslubi */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 1.5rem;
+        }
+
+        .dashboard-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .section {
+            flex: 1;
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            min-width: 300px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+            text-align: center; /* Sarlavhani o'rtaga tekislash */
+        }
+
+        /* Jadval uslubi */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        td img {
+            width: 60px;
+            height: 60px;
+        }
+
+        td button {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-right: 5px;
+        }
+
+        .btn-download {
+            background-color: #4CAF50;
+        }
+
+        .btn-delete {
+            background-color: #f44336;
+        }
+
+        /* Form yaratish */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 400px;
+            margin: auto;
+        }
+
+        input[type="url"], input[type="text"], input[type="tel"] {
+            width: 93%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .btn-danger {
+            background-color: #f44336;
+        }
+
+        /* Responsive uslub */
+        @media screen and (max-width: 768px) {
+            .dashboard-grid {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Generate QR Code va Request Form yonma-yon -->
+        <div class="dashboard-grid">
+            <!-- Generate QR Code Section -->
+            <div class="section">
+                <h2 class="section-title">Generate QR Code</h2>
+                <form method="post" action="{% url 'qr_code_generator' %}">
+                    {% csrf_token %}
+                    <input type="url" name="url" placeholder="Enter URL" required>
+                    <button type="submit">Generate QR Code</button>
+                </form>
+            </div>
+
+            <!-- Add Student Form -->
+            <div class="section">
+                <h2 class="section-title">Add Student</h2>
+                <form method="post" action="{% url 'student-request-dashboard' %}">
+                    {% csrf_token %}
+                    <input type="text" name="full_name" placeholder="Full Name" required>
+                    <input type="tel" name="phone_number" placeholder="Phone Number" required>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- QR Codes va Student List yonma-yon -->
+        <div class="dashboard-grid">
+            <!-- QR Codes Section -->
+            <div class="section">
+                <h2 class="section-title">QR Codes</h2>
+                <table>
+                    <tr>
+                        <th>#</th>
+                        <th>URL</th>
+                        <th>QR Code</th>
+                        <th>Actions</th>
+                    </tr>
+                    {% for qr in qr_codes %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><a href="{% url 'qr_details' qr.id %}">{{ qr.url }}</a></td>
+                        <td><img src="{{ qr.image.url }}" alt="QR Code"></td>
+                        <td>
+                            <a href="{{ qr.image.url }}" download>
+                                <button class="btn-download">Download</button>
+                            </a>
+                            <form action="{% url 'delete_qr' qr.id %}" style="display:inline;">
+                                {% csrf_token %}
+                                <button class="btn-delete">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <!-- Students Section -->
+            <div class="section">
+                <h2 class="section-title">Students List</h2>
+                <table>
+                    <tr>
+                        <th>#</th>
+                        <th>Full Name</th>
+                        <th>Phone Number</th>
+                        <th>Created At</th> <!-- Yangi ustun qo'shildi -->
+                        <th>Actions</th>
+                    </tr>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ student.full_name }}</td>
+                        <td>{{ student.phone_number }}</td>
+                        <td>{{ student.created_at }}</td> <!-- Qo'shilgan sana ko'rsatiladi -->
+                        <td>
+                            <form action="{% url 'delete_student' student.id %}" style="display:inline;">
+                                {% csrf_token %}
+                                <button class="btn-delete">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

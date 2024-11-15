@@ -55,11 +55,31 @@
             font-size: 1rem;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-top: 1rem;
         }
 
         /* Tugmaga hover qilish uslubi */
         .download-button:hover {
             background-color: #45a049;
+        }
+
+        /* Dashboard tugmasi uslubi */
+        .back-button {
+            display: inline-block;
+            padding: 0.8rem 1.2rem;
+            background-color: #2196F3;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 1rem;
+        }
+
+        /* Tugmaga hover qilish uslubi */
+        .back-button:hover {
+            background-color: #1E88E5;
         }
 
         /* Xatolik matni uslubi */
@@ -80,6 +100,10 @@
         {% else %}
             <p class="error-message">Rasm topilmadi!</p>
         {% endif %}
+        
+        <!-- Dashboard'ga qaytish tugmasi -->
+        <br>
+        <a href="{% url 'dashboard' %}" class="back-button">Back to Dashboard</a>
     </div>
 </body>
 </html>

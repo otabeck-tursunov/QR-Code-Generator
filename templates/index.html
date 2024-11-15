@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
@@ -23,7 +24,7 @@
             font-family: Arial, sans-serif;
             color: white;
             overflow: hidden !important;
-            background-image: url(../static/bg.png);
+            background-image: url({% static 'bg.png' %});
             background-size: 100%;
         }
 
@@ -101,12 +102,11 @@
     <div class="title">Maqsadingiz sari hozir, shu yerda harakatni boshlang!</div>
     <div class="quote-author">Stiv Jobs</div>
 
-    <form method="post" class="input-container">
-        {% csrf_token %}
-        <input type="text" name="full_name" class="input" placeholder="Ism">
-        <input type="text" name="phone_number" class="input" placeholder="Telefon raqam">
+    <div class="input-container">
+        <input type="text" class="input" placeholder="Ism">
+        <input type="text" class="input" placeholder="Telefon raqam">
         <button>Jo'natish</button>
-    </form>
+    </div>
 </div>
 
 

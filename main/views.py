@@ -9,6 +9,15 @@ from django.views import View
 from .models import QRCode, Student
 
 
+class DashboardView(View):
+    def get(self, request):
+        context = {
+            'qr_codes': QRCode.objects.all(),
+            'students': Student.objects.order_by('-id'),
+        }
+        return render(request, 'dashboard.html', context)
+
+
 class QRCodesView(View):
     def get(self, request):
         context = {
@@ -24,6 +33,13 @@ class QRCodeDetailsView(View):
             'qr_code': qr_code
         }
         return render(request, 'qr_code_details.html', context)
+
+
+class QRCodeDeleteView(View):
+    def get(self, request, qr_code_id):
+        qr_code = get_object_or_404(QRCode, id=qr_code_id)
+        qr_code.delete()
+        return redirect('dashboard')
 
 
 class QRCodeGeneratorView(View):
@@ -53,6 +69,13 @@ class StudentsView(View):
         return render(request, 'students.html', context)
 
 
+class StudentDeleteView(View):
+    def get(self, request, student_id):
+        student = get_object_or_404(Student, id=student_id)
+        student.delete()
+        return redirect('dashboard')
+
+
 class StudentRequestView(View):
     def get(self, request):
         return render(request, 'request.html')
@@ -63,6 +86,15 @@ class StudentRequestView(View):
             phone_number=request.POST.get('phone_number')
         )
         return redirect('/success/')
+
+
+class StudentRequestDashboardView(View):
+    def post(self, request):
+        Student.objects.create(
+            full_name=request.POST.get('full_name'),
+            phone_number=request.POST.get('phone_number')
+        )
+        return redirect('dashboard')
 
 
 class SuccessView(View):

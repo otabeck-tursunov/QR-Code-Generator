@@ -12,6 +12,7 @@ class QRCode(models.Model):
 class Student(models.Model):
     full_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=13)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.full_name
