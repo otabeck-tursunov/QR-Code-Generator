@@ -99,4 +99,4 @@ class StudentRequestDashboardView(View):
 
 class SuccessView(View):
     def get(self, request):
-        return HttpResponse('Muvaffaqiyatli! E\'tiboringiz uchun rahmat!')
+        return render(request, 'form-confirm.html')

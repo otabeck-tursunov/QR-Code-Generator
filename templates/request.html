@@ -66,9 +66,10 @@
             margin-top: 40px !important;
         }
         .input-container button{
+            width: 100%;
             display: block;
             margin: 0 auto;
-            padding: 5px 10px;
+            padding: 10px 0px;
             background-color: #00a1e9;
             color: white;
             border: none;
@@ -103,8 +104,8 @@
 
     <form method="post" class="input-container">
         {% csrf_token %}
-        <input type="text" name="full_name" class="input" placeholder="Ism">
-        <input type="text" name="phone_number" class="input" placeholder="Telefon raqam">
+        <input type="text" name="full_name" class="input" placeholder="Ism" required>
+        <input type="text" name="phone_number" class="input" placeholder="Telefon raqam" required>
         <button>Jo'natish</button>
     </form>
 </div>
